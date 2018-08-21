@@ -11,8 +11,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -25,17 +23,7 @@ android {
 }
 
 dependencies {
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
-//
     compileOnly 'com.android.support:appcompat-v7:27.1.1'
-//    compileOnly 'com.android.support:design:27.1.1'
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-////    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-//    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-//
     compileOnly 'com.android.support:recyclerview-v7:27.1.1'
     api 'in.srain.cube:ptr-load-more:1.0.6'
     api 'com.readystatesoftware.systembartint:systembartint:1.0.4'
