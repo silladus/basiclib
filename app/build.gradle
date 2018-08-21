@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+
+    boolean isInstallToPhone = false
+    defaultConfig {
+        Properties pp = new Properties()
+        FileInputStream fin = new FileInputStream(project.projectDir.getPath() + '/config.properties')
+        pp.load(fin)
+        fin.close()
+
+        isInstallToPhone =  Boolean.parseBoolean(pp.get('isInstallToPhone'))
+        applicationId 'silladus.sample'
+
+        minSdkVersion pp.get('minSdkVersion')
+        targetSdkVersion pp.get('targetSdkVersion')
+        versionCode Integer.valueOf(pp.get('versionCode'))
+        versionName pp.get('versionName')
+
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        // 开启multiDex
+        multiDexEnabled Boolean.parseBoolean(pp.get('multiDexEnabled'))
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'//, 'armeabi', 'arm64-v8a', 'x86_64'
+        }
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 修改版本号
+            versionNameSuffix '-debug'
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'//
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation project(':basiclib')
+//    implementation 'com.github.silladus:basiclib:1.0.0'
+
+}
