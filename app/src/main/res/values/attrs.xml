@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="text_underline">
+        <attr name="underlineHeight" format="dimension" />
+        <attr name="underlineColor" format="color" />
+        <attr name="firstPadding" format="dimension"/>
+        <attr name="underlinePaddingLeft" format="dimension" />
+        <attr name="underlinePaddingRight" format="dimension" />
+        <attr name="underlinePaddingTop" format="dimension" />
+    </declare-styleable>
+</resources>
