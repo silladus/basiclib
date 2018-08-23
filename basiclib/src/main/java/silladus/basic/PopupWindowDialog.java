@@ -10,7 +10,8 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 /**
- * Created by silladus on 2017/7/7/0007.
+ * @author silladus
+ * @date 2017/7/7/0007
  * GitHub: https://github.com/silladus
  * Description:
  */
@@ -53,7 +54,7 @@ public class PopupWindowDialog {
 
     public void show(View anchorView) {
         if (mPopupWindow == null) {
-            final Activity activity = (Activity) anchorView.getContext();
+            final Activity activity = (Activity) mContentView.getContext();
             mPopupWindow = new PopupWindow(mContentView, (int) (anchorView.getResources().getDisplayMetrics().widthPixels / mWindowWidth), ViewGroup.LayoutParams.WRAP_CONTENT, true);
             // 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框
             mPopupWindow.setBackgroundDrawable(new ColorDrawable());
@@ -61,7 +62,7 @@ public class PopupWindowDialog {
             windowPos = calculatePopWindowPos(anchorView, mContentView);
             //创建当前界面的一个参数对象
             WindowManager.LayoutParams params = activity.getWindow().getAttributes();
-            params.alpha = 0.6f;
+            params.alpha = alpha;
             //把该参数对象设置进当前界面中
             activity.getWindow().setAttributes(params);
             mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -71,6 +72,10 @@ public class PopupWindowDialog {
                     //设置为不透明，即恢复原来的界面
                     params.alpha = 1.0f;
                     activity.getWindow().setAttributes(params);
+
+                    if (listener != null) {
+                        listener.onDismiss();
+                    }
                 }
             });
         }
@@ -102,19 +107,39 @@ public class PopupWindowDialog {
         return this;
     }
 
-    // 屏幕宽度与window宽度的比数
+    public PopupWindowDialog setOnDismissListener(PopupWindow.OnDismissListener listener) {
+        this.listener = listener;
+        return this;
+    }
+
+    /**
+     * 屏幕宽度与window宽度的比数
+     */
     public PopupWindowDialog setWindowWidth(int mWindowWidth) {
         this.mWindowWidth = mWindowWidth;
         return this;
     }
 
+    private PopupWindow.OnDismissListener listener;
     private float mWindowWidth = 1f;
     private int mYOffset = 80;
     private int mGravity;
     private int position = 1;
+    private float alpha = 0.6f;
 
     public PopupWindowDialog setGravityByIndex(int i) {
         position = i;
+        return this;
+    }
+
+    public PopupWindowDialog setAlpha(float alpha) {
+        if (alpha < 0) {
+            this.alpha = 0;
+        } else if (alpha > 1f) {
+            this.alpha = 1f;
+        } else {
+            this.alpha = alpha;
+        }
         return this;
     }
 
