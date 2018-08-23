@@ -18,6 +18,8 @@ import silladus.basic.WeakHandler;
  */
 public abstract class BannerPagerAdapter<T> extends PagerAdapter {
     private List<T> data;
+    private boolean isLoopState;
+    private int initSelectIndex;
 
     public List<T> getData() {
         return data;
@@ -51,11 +53,24 @@ public abstract class BannerPagerAdapter<T> extends PagerAdapter {
      */
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        if (isLoopState && getRealCount() > 1) {
+            return Integer.MAX_VALUE;
+        }
+        return getRealCount();
     }
 
     public int getRealCount() {
         return data == null ? 0 : data.size();
+    }
+
+    /**
+     * Call this method before set adapter to ViewPager.
+     *
+     * @param isLoopState if always scroll able.
+     */
+    public void setLoopState(boolean isLoopState) {
+        this.isLoopState = isLoopState;
+        this.initSelectIndex = this.isLoopState ? getCount() / 2 : 0;
     }
 
     @Override
@@ -66,6 +81,11 @@ public abstract class BannerPagerAdapter<T> extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        if (isLoopState && initSelectIndex > 0) {
+            ((ViewPager) container).setCurrentItem(initSelectIndex, false);
+            initSelectIndex = 0;
+        }
+
         position %= getRealCount();
 
         mAdRunnable.setupWithViewPager((ViewPager) container);
