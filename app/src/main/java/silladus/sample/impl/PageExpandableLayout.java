@@ -1,4 +1,4 @@
-package silladus.basic.adapter.page.impl;
+package silladus.sample.impl;
 
 import android.content.Context;
 import android.view.View;
@@ -15,7 +15,7 @@ import silladus.basic.adapter.page.BasePage;
  * GitHub: https://github.com/silladus
  * Description:
  */
-
+@Deprecated
 public abstract class PageExpandableLayout<G, C> extends BasePage<ExpandableListAdapter.ExpandEntry<G, C>, ExpandableListView, ExpandableListAdapter<G, C>> {
 
     public PageExpandableLayout(int reqCode, int pagerIndex, Context mContext) {

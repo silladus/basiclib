@@ -21,40 +21,44 @@ public class ActivityInitConfig {
     private boolean isClipToPadding;
 
     public ActivityInitConfig(Activity activity, IStatusBar2 iStatusBar) {
+        if (!(activity instanceof IActivity)) {
+            return;
+        }
+
         // AppCompatActivity call the supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         // else call requestWindowFeature(Window.FEATURE_NO_TITLE) if extend Activity.
         if (activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
-        if (activity instanceof IActivity) {
-            // inflate root layout
-            final ViewGroup rootLayout = (ViewGroup) View.inflate(
-                    activity, ((IActivity) activity).getLayoutRes(), null
-            );
-
-            int statusBarColor;
-            if (activity instanceof IStatusBar) {
-                isClipToPadding = ((IStatusBar) activity).isClipToPadding();
-                statusBarColor = ((IStatusBar) activity).statusBarColor();
-            } else if (activity instanceof IStatusBarColor) {
-                isClipToPadding = iStatusBar.isClipToPadding();
-                statusBarColor = ((IStatusBarColor) activity).statusBarColor();
-            } else {
-                isClipToPadding = iStatusBar.isClipToPadding();
-                statusBarColor = iStatusBar.statusBarColor(activity);
-            }
-            if (isClipToPadding) {
-                rootLayout.setClipToPadding(true);
-                rootLayout.setFitsSystemWindows(true);
-            }
-
-            statusBar(statusBarColor, activity);
-            activity.setContentView(rootLayout);
-
-            ((IActivity) activity).onConfigInit(this);
-
+        int statusBarColor;
+        if (activity instanceof IStatusBar) {
+            isClipToPadding = ((IStatusBar) activity).isClipToPadding();
+            statusBarColor = ((IStatusBar) activity).statusBarColor();
+        } else if (activity instanceof IStatusBarColor) {
+            isClipToPadding = iStatusBar.isClipToPadding();
+            statusBarColor = ((IStatusBarColor) activity).statusBarColor();
+        } else {
+            isClipToPadding = iStatusBar.isClipToPadding();
+            statusBarColor = iStatusBar.statusBarColor(activity);
         }
+
+        statusBar(statusBarColor, activity);
+
+        View view = activity.findViewById(android.R.id.content);
+        if (isClipToPadding && view instanceof ViewGroup) {
+            ((ViewGroup) view).setClipToPadding(true);
+            view.setFitsSystemWindows(true);
+        }
+
+        // inflate root layout
+        int layoutRes = ((IActivity) activity).getLayoutRes();
+        if (layoutRes > 0) {
+            activity.setContentView(View.inflate(activity, layoutRes, null));
+        }
+
+        ((IActivity) activity).onConfigInit(this);
+
     }
 
     /**
