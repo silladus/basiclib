@@ -16,7 +16,7 @@ import silladus.basic.adapter.recyclerview.RecyclerViewAdapter;
  * GitHub: https://github.com/silladus
  * Description:
  */
-
+@Deprecated
 public abstract class RecyclerPageLayout<T> extends BasePage<T, RecyclerView, RecyclerViewAdapter<T>> {
 
     public RecyclerPageLayout(int reqCode, int pagerIndex, Context mContext) {

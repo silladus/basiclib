@@ -16,7 +16,7 @@ import silladus.basic.adapter.CommonAdapter;
  * GitHub: https://github.com/silladus
  * Description:
  */
-
+@Deprecated
 public abstract class PageLayout<T> extends BasePage<T, ListView, CommonAdapter<T>> {
 
     public PageLayout(int reqCode, int pagerIndex, Context mContext) {
