@@ -9,7 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.PointerIcon;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
@@ -26,30 +31,54 @@ public class ActivityLifecycleCallbacksImp extends SimpleActivityLifecycleCallba
         // implement the IToolbar interface
         if (activity instanceof IToolbar) {
             ((IToolbar) activity).initToolbar();
-        } //else if (activity instanceof AppCompatActivity) {
-            // initToolbar((AppCompatActivity) activity);
-        //}
+        } else if (activity instanceof AppCompatActivity) {
+             initToolbar((AppCompatActivity) activity);
+        }
     }
 
-//    private void initToolbar(@NonNull AppCompatActivity activity) {
-//        // Set up the toolbar.
-//        Toolbar toolbar = activity.findViewById(R.id.toolbar);
-//        // Set the Toolbar as an ActionBar.
-//        activity.setSupportActionBar(toolbar);
-//        ActionBar ab = activity.getSupportActionBar();
-//        if (ab != null) {
-//            // Title layout in the Toolbar's center.
-//            TextView tv = new AppCompatTextView(activity);
-//            tv.setText(activity.getTitle());
-//            tv.setSingleLine();
-//            tv.setEllipsize(TextUtils.TruncateAt.END);
-//            tv.setTextSize(20);
-//            tv.setTextColor(Color.WHITE);
-//            toolbar.addView(tv, new Toolbar.LayoutParams(Gravity.CENTER));
-//            // Hide the default title.
-//            ab.setDisplayShowTitleEnabled(false);
-//            ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
-//            ab.setDisplayHomeAsUpEnabled(true);
-//        }
-//    }
+    private void initToolbar(@NonNull AppCompatActivity activity) {
+//        View view = View.inflate(activity, R.layout.toolbar, null);
+        // Set up the toolbar.
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        // Set the Toolbar as an ActionBar.
+        activity.setSupportActionBar(toolbar);
+        ActionBar ab = activity.getSupportActionBar();
+        if (ab != null) {
+            for (int i = 0; i < 3; i++) {
+                // Title layout in the Toolbar's center.
+                TextView tv = new AppCompatTextView(activity);
+                tv.setText(activity.getTitle());
+                tv.setSingleLine();
+                tv.setEllipsize(TextUtils.TruncateAt.END);
+                tv.setTextSize(20);
+                tv.setTextColor(Color.WHITE);
+                //tv.setClickable(true);
+                //tv.setPointerIcon(PointerIcon.getSystemIcon(activity, PointerIcon.TYPE_HAND));
+                Toolbar.LayoutParams lp;
+                if (i == 1) {
+                    lp = new Toolbar.LayoutParams(Gravity.CENTER);
+                    lp.setMargins(0, 0, 120, 0);
+                } else {
+                    if (i == 0) {
+                        tv.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                activity.getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp),
+                                null,
+                                null,
+                                null
+                        );
+                        tv.setBackgroundColor(Color.GREEN);
+                        lp = new Toolbar.LayoutParams(Gravity.CENTER_VERTICAL);
+                    } else {
+                        lp = new Toolbar.LayoutParams(Gravity.CENTER_VERTICAL|Gravity.END);
+                    }
+                    lp.width = 120;
+                }
+//                toolbar.addView(tv, lp);
+            }
+            // Hide the default title.
+            ab.setDisplayShowTitleEnabled(false);
+            ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+            ab.setDisplayHomeAsUpEnabled(false);
+        }
+    }
 }

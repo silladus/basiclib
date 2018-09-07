@@ -6,5 +6,5 @@ package silladus.basic;
  * GitHub: https://github.com/silladus
  * Description:
  */
-public interface IFragment extends IProcess {
+public interface IFragment {
 }

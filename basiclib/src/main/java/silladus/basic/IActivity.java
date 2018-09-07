@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
  * GitHub: https://github.com/silladus
  * Description:
  */
-public interface IActivity extends IProcess {
+public interface IActivity {
     /**
      * To get a default Activity window config instance.
      *

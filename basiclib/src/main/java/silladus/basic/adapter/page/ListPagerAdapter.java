@@ -2,6 +2,7 @@ package silladus.basic.adapter.page;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
 import android.view.View;
@@ -71,6 +72,7 @@ public abstract class ListPagerAdapter<T, LV extends View, A> extends PagerAdapt
         return titleText[position];
     }
 
+    @NonNull
     private BasePage<T, LV, A> getPage(int position, Context context) {
         BasePage<T, LV, A> page = getPageLayout(position);
         if (page == null) {
@@ -79,6 +81,7 @@ public abstract class ListPagerAdapter<T, LV extends View, A> extends PagerAdapt
         return page;
     }
 
+    @Nullable
     public final BasePage<T, LV, A> getPageLayout(int position) {
         if (position >= getCount()) {
             throw new IndexOutOfBoundsException("Length is " + getCount() + ", index is " + position);

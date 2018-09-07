@@ -11,11 +11,11 @@ public interface IProcess {
     /**
      * Show loading view.
      */
-    void showLoadingDialog();
+    void showLoading();
 
     /**
      * Hide loading view.
      */
-    void hideLoadingDialog();
+    void hideLoading();
 
 }
