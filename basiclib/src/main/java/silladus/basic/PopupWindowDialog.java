@@ -97,8 +97,8 @@ public class PopupWindowDialog {
                     mYOffset,
                     anchorView.getResources().getDisplayMetrics()
             );
-            windowPos[1] += yOffset;
-            mPopupWindow.showAtLocation(anchorView, pos[position], windowPos[0], windowPos[1]);
+            int y = windowPos[1] + yOffset;
+            mPopupWindow.showAtLocation(anchorView, pos[position], windowPos[0], y);
         }
     }
 
