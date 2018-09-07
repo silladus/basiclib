@@ -1,4 +1,4 @@
-package silladus.basic.adapter.page.impl;
+package silladus.sample.impl;
 
 import android.content.Context;
 import android.view.View;
