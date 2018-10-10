@@ -20,7 +20,7 @@ public abstract class AbstractFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(getLayoutRes(), null);
+        return inflater.inflate(getLayoutRes(), container, false);
     }
 
     @Override
