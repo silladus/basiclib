@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -32,6 +39,9 @@ public class App extends Application {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 super.onActivityCreated(activity, savedInstanceState);
+                if (activity instanceof AppCompatActivity) {
+                    initToolbar((AppCompatActivity) activity);
+                }
                 //LinearLayout
                 //-----ActionBar
                 //-----FrameLayout(android.R.id.content)
@@ -73,7 +83,29 @@ public class App extends Application {
             }
 
         });
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacksImp());
+        //registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacksImp());
+    }
+
+    private void initToolbar(@NonNull AppCompatActivity activity) {
+        // Set up the toolbar.
+        Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        // Set the Toolbar as an ActionBar.
+        activity.setSupportActionBar(toolbar);
+        ActionBar ab = activity.getSupportActionBar();
+        if (ab != null) {
+            // Title layout in the Toolbar's center.
+            TextView tv = new AppCompatTextView(activity);
+            tv.setText(activity.getTitle());
+            tv.setSingleLine();
+            tv.setEllipsize(TextUtils.TruncateAt.END);
+            tv.setTextSize(20);
+            tv.setTextColor(Color.WHITE);
+            toolbar.addView(tv, new Toolbar.LayoutParams(Gravity.CENTER));
+            // Hide the default title.
+            ab.setDisplayShowTitleEnabled(false);
+            ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 }

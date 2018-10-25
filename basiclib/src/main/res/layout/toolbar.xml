@@ -16,32 +16,32 @@
         app:contentInsetStart="16dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <CheckBox
-            android:id="@+id/tv_navigation"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableStart="@drawable/ic_arrow_back_black_24dp"
-            android:button="@null"/>
+        <!--<CheckBox-->
+            <!--android:id="@+id/tv_navigation"-->
+            <!--style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:drawableStart="@drawable/ic_arrow_back_black_24dp"-->
+            <!--android:button="@null"/>-->
 
-        <TextView
-            android:id="@+id/tv_title"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="title"
-            android:layout_marginStart="70dp"
-            android:layout_marginEnd="70dp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_title"-->
+            <!--style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="title"-->
+            <!--android:layout_marginStart="70dp"-->
+            <!--android:layout_marginEnd="70dp"/>-->
 
-        <TextView
-            android:id="@+id/tv_right"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:text="right"/>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_right"-->
+            <!--style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical|end"-->
+            <!--android:text="right"/>-->
 
     </android.support.v7.widget.Toolbar>
 
