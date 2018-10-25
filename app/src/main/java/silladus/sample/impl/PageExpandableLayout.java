@@ -11,7 +11,8 @@ import silladus.basic.adapter.ExpandableListAdapter;
 import silladus.basic.adapter.page.BasePage;
 
 /**
- * Created by silladus on 2017/8/23/0023.
+ * @author silladus
+ * @date 2017/8/23/0023
  * GitHub: https://github.com/silladus
  * Description:
  */
