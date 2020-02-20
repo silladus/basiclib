@@ -54,9 +54,7 @@ public class ActivityInitConfig {
 
         // inflate root layout
         int layoutRes = ((IActivity) activity).getLayoutRes();
-        if (layoutRes > 0) {
-            activity.setContentView(layoutRes);
-        }
+        activity.setContentView(layoutRes);
 
         ((IActivity) activity).onConfigInit(this);
 

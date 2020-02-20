@@ -49,9 +49,9 @@ public class App extends Application {
                             .registerFragmentLifecycleCallbacks(
                                     new BasicFragmentLifecycleCallbacks(){
                                         @Override
-                                        public void onFragmentViewCreated(FragmentManager fm,
-                                                                          Fragment f,
-                                                                          View v,
+                                        public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                                                                          @NonNull Fragment f,
+                                                                          @NonNull View v,
                                                                           Bundle savedInstanceState) {
                                             super.onFragmentViewCreated(fm, f, v, savedInstanceState);
                                             if (v instanceof ViewGroup) {
@@ -75,7 +75,7 @@ public class App extends Application {
             }
 
             @Override
-            public int statusBarColor(Activity activity) {
+            public int statusBarColor() {
                 return getResources().getColor(R.color.main);
             }
 

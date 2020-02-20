@@ -1,21 +1,14 @@
 package silladus.sample;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import silladus.basic.ActivityInitConfig;
-import silladus.basic.IActivity;
 
 /**
  * @author silladus
  */
-public class EmptyActivity extends AppCompatActivity implements IActivity {
-    @Override
-    public void onConfigInit(@NonNull ActivityInitConfig config) {
-
-    }
+public class EmptyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,12 +21,6 @@ public class EmptyActivity extends AppCompatActivity implements IActivity {
 //                .commit();
 
 
-    }
-
-    @Override
-    public int getLayoutRes() {
-        return 0;
-//        return R.layout.activity_main;
     }
 
 }
