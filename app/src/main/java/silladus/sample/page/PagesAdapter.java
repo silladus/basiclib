@@ -4,7 +4,7 @@ package silladus.sample.page;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import silladus.basic.adapter.CommonAdapter;
 import silladus.basic.adapter.page.BasePage;
 import silladus.basic.adapter.page.IData;
 import silladus.basic.adapter.page.ListPagerAdapter;
-import silladus.sample.page.SinglePage;
 
 /**
  * @author silladus

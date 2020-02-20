@@ -1,6 +1,6 @@
 package silladus.basic.adapter;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;

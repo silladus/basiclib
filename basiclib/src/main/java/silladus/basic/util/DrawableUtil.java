@@ -6,8 +6,8 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntDef;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
 import android.widget.TextView;
 
 import java.lang.annotation.Retention;

@@ -1,19 +1,17 @@
 package silladus.sample;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import silladus.basic.ActivityInitConfig;
 import silladus.basic.IActivity;
-import silladus.basic.IProcess;
 
 /**
  * @author silladus
  */
-public class EmptyActivity extends AppCompatActivity implements IActivity, IProcess {
+public class EmptyActivity extends AppCompatActivity implements IActivity {
     @Override
     public void onConfigInit(@NonNull ActivityInitConfig config) {
 
@@ -38,13 +36,4 @@ public class EmptyActivity extends AppCompatActivity implements IActivity, IProc
 //        return R.layout.activity_main;
     }
 
-    @Override
-    public void showLoading() {
-        // no impl.
-    }
-
-    @Override
-    public void hideLoading() {
-        // no impl.
-    }
 }

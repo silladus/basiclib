@@ -1,7 +1,7 @@
 package silladus.basic;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 
 /**
  * Created by silladus on 2018/5/31/0031.

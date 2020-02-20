@@ -2,9 +2,8 @@ package silladus.basic;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.CallSuper;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by silladus on 2018/5/31/0031.
@@ -13,7 +12,7 @@ import android.support.v4.app.FragmentManager;
  */
 public abstract class BasicActivityLifecycleCallbacksImp
         extends SimpleActivityLifecycleCallbacks
-        implements IStatusBar2 {
+        implements IStatusBar {
 
     @CallSuper
     @Override

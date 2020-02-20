@@ -1,8 +1,10 @@
 package silladus.basic;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.view.View;
 
 /**
@@ -17,9 +19,9 @@ public class BasicFragmentLifecycleCallbacks extends FragmentManager.FragmentLif
      * Bind views.
      */
     @Override
-    public void onFragmentViewCreated(FragmentManager fm,
-                                      Fragment f,
-                                      View v,
+    public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                                      @NonNull Fragment f,
+                                      @NonNull View v,
                                       Bundle savedInstanceState) {
 
     }
@@ -28,8 +30,8 @@ public class BasicFragmentLifecycleCallbacks extends FragmentManager.FragmentLif
      * Install some instance exclude View.
      */
     @Override
-    public void onFragmentActivityCreated(FragmentManager fm,
-                                          Fragment f,
+    public void onFragmentActivityCreated(@NonNull FragmentManager fm,
+                                          @NonNull Fragment f,
                                           Bundle savedInstanceState) {
     }
 
@@ -37,7 +39,7 @@ public class BasicFragmentLifecycleCallbacks extends FragmentManager.FragmentLif
      * Unbind views.
      */
     @Override
-    public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
+    public void onFragmentViewDestroyed(@NonNull FragmentManager fm, @NonNull Fragment f) {
 
     }
 
@@ -45,7 +47,7 @@ public class BasicFragmentLifecycleCallbacks extends FragmentManager.FragmentLif
      * Release references.
      */
     @Override
-    public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
+    public void onFragmentDestroyed(@NonNull FragmentManager fm, @NonNull Fragment f) {
 
     }
 }
