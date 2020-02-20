@@ -1,4 +1,4 @@
-package silladus.basic.adapter.recyclerview;
+package silladus.sample.adapter.recyclerview;
 
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;

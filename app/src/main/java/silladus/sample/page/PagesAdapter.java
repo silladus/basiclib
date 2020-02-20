@@ -10,10 +10,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import silladus.basic.adapter.CommonAdapter;
-import silladus.basic.adapter.page.BasePage;
-import silladus.basic.adapter.page.IData;
-import silladus.basic.adapter.page.ListPagerAdapter;
+import silladus.sample.adapter.CommonAdapter;
+import silladus.sample.adapter.page.BasePage;
+import silladus.sample.adapter.page.IData;
+import silladus.sample.adapter.page.ListPagerAdapter;
 
 /**
  * @author silladus

@@ -7,9 +7,9 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import silladus.basic.R;
-import silladus.basic.adapter.CommonAdapter;
-import silladus.basic.adapter.page.BasePage;
+import silladus.sample.adapter.CommonAdapter;
+import silladus.sample.adapter.page.BasePage;
+import silladus.sample.R;
 
 /**
  * @author silladus

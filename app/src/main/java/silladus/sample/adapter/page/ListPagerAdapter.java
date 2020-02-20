@@ -1,4 +1,4 @@
-package silladus.basic.adapter.page;
+package silladus.sample.adapter.page;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

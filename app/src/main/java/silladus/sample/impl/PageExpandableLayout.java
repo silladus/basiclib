@@ -6,9 +6,9 @@ import android.widget.ExpandableListView;
 
 import java.util.List;
 
-import silladus.basic.R;
-import silladus.basic.adapter.ExpandableListAdapter;
-import silladus.basic.adapter.page.BasePage;
+import silladus.sample.adapter.ExpandableListAdapter;
+import silladus.sample.adapter.page.BasePage;
+import silladus.sample.R;
 
 /**
  * @author silladus

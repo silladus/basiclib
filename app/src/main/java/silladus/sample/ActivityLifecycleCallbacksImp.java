@@ -1,4 +1,4 @@
-package silladus.basic;
+package silladus.sample;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
+import silladus.basic.IToolbar;
+import silladus.basic.SimpleActivityLifecycleCallbacks;
+
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.TextView;
