@@ -9,8 +9,7 @@ import android.os.Bundle;
  * GitHub: https://github.com/silladus
  * Description:
  */
-public abstract class SimpleActivityLifecycleCallbacks
-        implements Application.ActivityLifecycleCallbacks {
+public abstract class SimpleActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {

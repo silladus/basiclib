@@ -1,10 +1,10 @@
 package silladus.basic;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,14 +65,14 @@ public abstract class AbstractFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden) {
-            // 视图创建以后才调用onPause，过滤生成实例后隐藏跳过onCreateView直接触发onPause
-            if (getView() != null) {
-                onPause();
-            }
-        } else {
-            onResume();
-        }
+//        if (hidden) {
+//            // 视图创建以后才调用onPause，过滤生成实例后隐藏跳过onCreateView直接触发onPause
+//            if (getView() != null) {
+//                onPause();
+//            }
+//        } else {
+//            onResume();
+//        }
         setUserVisibleHint(!hidden);
     }
 }

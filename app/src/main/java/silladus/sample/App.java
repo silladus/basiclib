@@ -4,24 +4,21 @@ import android.app.Activity;
 import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import silladus.basic.ActivityLifecycleCallbacksImp;
 import silladus.basic.BasicFragmentLifecycleCallbacks;
-import silladus.sample.R;
 import silladus.basic.BasicActivityLifecycleCallbacksImp;
 
 public class App extends Application {
@@ -52,9 +49,9 @@ public class App extends Application {
                             .registerFragmentLifecycleCallbacks(
                                     new BasicFragmentLifecycleCallbacks(){
                                         @Override
-                                        public void onFragmentViewCreated(FragmentManager fm,
-                                                                          Fragment f,
-                                                                          View v,
+                                        public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                                                                          @NonNull Fragment f,
+                                                                          @NonNull View v,
                                                                           Bundle savedInstanceState) {
                                             super.onFragmentViewCreated(fm, f, v, savedInstanceState);
                                             if (v instanceof ViewGroup) {
@@ -78,7 +75,7 @@ public class App extends Application {
             }
 
             @Override
-            public int statusBarColor(Activity activity) {
+            public int statusBarColor() {
                 return getResources().getColor(R.color.main);
             }
 

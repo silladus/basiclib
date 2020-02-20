@@ -3,14 +3,15 @@ package silladus.basic;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import androidx.annotation.ColorInt;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by silladus on 2018/5/31/0031.
@@ -20,7 +21,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 public class ActivityInitConfig {
     private boolean isClipToPadding;
 
-    public ActivityInitConfig(Activity activity, IStatusBar2 iStatusBar) {
+    public ActivityInitConfig(Activity activity, IStatusBar iStatusBar) {
         if (!(activity instanceof IActivity)) {
             return;
         }
@@ -40,22 +41,20 @@ public class ActivityInitConfig {
             statusBarColor = ((IStatusBarColor) activity).statusBarColor();
         } else {
             isClipToPadding = iStatusBar.isClipToPadding();
-            statusBarColor = iStatusBar.statusBarColor(activity);
+            statusBarColor = iStatusBar.statusBarColor();
         }
 
         statusBar(statusBarColor, activity);
 
-        View view = activity.findViewById(android.R.id.content);
-        if (isClipToPadding && view instanceof ViewGroup) {
-            ((ViewGroup) view).setClipToPadding(true);
+        ViewGroup view = activity.findViewById(android.R.id.content);
+        if (isClipToPadding) {
+            view.setClipToPadding(true);
             view.setFitsSystemWindows(true);
         }
 
         // inflate root layout
         int layoutRes = ((IActivity) activity).getLayoutRes();
-        if (layoutRes > 0) {
-            activity.setContentView(View.inflate(activity, layoutRes, null));
-        }
+        activity.setContentView(layoutRes);
 
         ((IActivity) activity).onConfigInit(this);
 

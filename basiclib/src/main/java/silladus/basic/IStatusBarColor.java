@@ -1,6 +1,6 @@
 package silladus.basic;
 
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 /**
  * Created by silladus on 2018/6/7/0007.
