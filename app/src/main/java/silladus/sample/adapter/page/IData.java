@@ -1,4 +1,4 @@
-package silladus.basic.adapter.page;
+package silladus.sample.adapter.page;
 
 /**
  * Created by silladus on 2018/3/24/0024.

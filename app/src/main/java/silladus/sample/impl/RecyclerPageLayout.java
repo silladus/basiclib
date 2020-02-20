@@ -7,9 +7,9 @@ import android.view.View;
 
 import java.util.List;
 
-import silladus.basic.R;
-import silladus.basic.adapter.page.BasePage;
-import silladus.basic.adapter.recyclerview.RecyclerViewAdapter;
+import silladus.sample.adapter.page.BasePage;
+import silladus.sample.adapter.recyclerview.RecyclerViewAdapter;
+import silladus.sample.R;
 
 /**
  * @author silladus

@@ -105,7 +105,6 @@ public abstract class BannerPagerAdapter<T> extends PagerAdapter {
 
     static final class AdRunnable implements Runnable {
         private static final long DELAY_MILLIS = 5000;
-        private int currentItem;
         private WeakHandler mHandler;
         private ViewPager mViewPager;
         private PagerAdapter adapter;
@@ -144,7 +143,7 @@ public abstract class BannerPagerAdapter<T> extends PagerAdapter {
 
         @Override
         public void run() {
-            currentItem = mViewPager.getCurrentItem();
+            int currentItem = mViewPager.getCurrentItem();
             currentItem++;
             currentItem %= adapter.getCount();
             mViewPager.setCurrentItem(currentItem);

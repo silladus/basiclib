@@ -1,4 +1,4 @@
-package silladus.basic.adapter;
+package silladus.sample.adapter;
 
 import androidx.annotation.LayoutRes;
 import android.view.View;

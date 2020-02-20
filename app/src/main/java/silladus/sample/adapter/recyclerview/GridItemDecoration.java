@@ -1,4 +1,4 @@
-package silladus.basic.adapter.recyclerview;
+package silladus.sample.adapter.recyclerview;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

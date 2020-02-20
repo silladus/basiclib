@@ -7,9 +7,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import silladus.basic.adapter.CommonAdapter;
-import silladus.basic.adapter.ViewHolder;
-import silladus.basic.adapter.page.IData;
+import silladus.sample.adapter.CommonAdapter;
+import silladus.sample.adapter.ViewHolder;
+import silladus.sample.adapter.page.IData;
 import silladus.sample.impl.PageLayout;
 
 /**

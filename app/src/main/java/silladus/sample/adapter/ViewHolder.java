@@ -1,4 +1,4 @@
-package silladus.basic.adapter;
+package silladus.sample.adapter;
 
 import android.util.SparseArray;
 import android.view.LayoutInflater;

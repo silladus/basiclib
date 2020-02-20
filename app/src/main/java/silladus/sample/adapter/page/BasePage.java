@@ -1,4 +1,4 @@
-package silladus.basic.adapter.page;
+package silladus.sample.adapter.page;
 
 import android.content.Context;
 import androidx.annotation.LayoutRes;
@@ -15,7 +15,7 @@ import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler2;
-import silladus.basic.R;
+import silladus.sample.R;
 
 /**
  * Created by silladus on 2018/1/22/0022.

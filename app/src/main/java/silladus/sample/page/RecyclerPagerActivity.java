@@ -15,8 +15,8 @@ import java.util.Arrays;
 
 import silladus.basic.ActivityInitConfig;
 import silladus.basic.IActivity;
-import silladus.basic.adapter.recyclerview.RecyclerViewAdapter;
-import silladus.basic.adapter.recyclerview.RecyclerViewHolder;
+import silladus.sample.adapter.recyclerview.RecyclerViewAdapter;
+import silladus.sample.adapter.recyclerview.RecyclerViewHolder;
 import silladus.sample.R;
 
 /**
@@ -66,12 +66,12 @@ public class RecyclerPagerActivity extends AppCompatActivity implements IActivit
         mViewPager.setAdapter(pagesAdapter);
 
         // RecyclerView
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(silladus.basic.R.layout.page_item_recyclerview, 0) {
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(R.layout.page_item_recyclerview, 0) {
             @Override
             public void onBindViewHolder(RecyclerViewHolder holder, Object item, int i) {
-                holder.getView(silladus.basic.R.id.tips)
+                holder.getView(R.id.tips)
                         .setVisibility(View.VISIBLE);
-                holder.getView(silladus.basic.R.id.mProgressBar)
+                holder.getView(R.id.mProgressBar)
                         .setVisibility(View.GONE);
             }
         };
