@@ -25,7 +25,7 @@ android {
 dependencies {
     compileOnly 'androidx.appcompat:appcompat:1.1.0'
     compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
-    api 'in.srain.cube:ptr-load-more:1.0.6'
+//    api 'in.srain.cube:ptr-load-more:1.0.6'
     api 'com.readystatesoftware.systembartint:systembartint:1.0.4'
 }
 

@@ -52,9 +52,9 @@ public class FragmentShowUtil {
         return f.getClass().getName() + "@" + i;
     }
 
-    public void showItem(int index) {
+    public FragmentShowUtil showItem(int index) {
         if (index < 0 || index >= fragments.length || index == currentIndex) {
-            return;
+            return this;
         }
 
         FragmentTransaction ft = fm.beginTransaction();
@@ -74,6 +74,7 @@ public class FragmentShowUtil {
         }
         ft.commit();
         currentIndex = index;
+        return this;
     }
 
     public void replaceItem(int index) {
