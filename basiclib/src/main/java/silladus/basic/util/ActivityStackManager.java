@@ -1,6 +1,7 @@
 package silladus.basic.util;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import java.util.Stack;
 
@@ -55,6 +56,12 @@ public class ActivityStackManager {
             }
         }
         return false;
+    }
+
+    public void startNewActivity(Class<? extends Activity> newActivity) {
+        Activity activity = getCurrentActivity();
+        activity.startActivity(new Intent(new Intent(activity, newActivity)));
+        activity.finish();
     }
 
     public void setTopActivity(Activity activity) {

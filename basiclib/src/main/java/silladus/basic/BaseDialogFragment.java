@@ -2,14 +2,15 @@ package silladus.basic;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 /**
  * Created by silladus on 2018/4/8/0008.
@@ -40,10 +41,15 @@ public abstract class BaseDialogFragment extends DialogFragment {
             WindowManager.LayoutParams params = w.getAttributes();
             params.width = getWindowWidth(getResources().getDisplayMetrics().widthPixels);
             params.height = getWindowHeight(getResources().getDisplayMetrics().heightPixels);
+            params.dimAmount = getDimAmount();
             w.setAttributes(params);
 
         }
 
+    }
+
+    protected float getDimAmount() {
+        return 0.6f;
     }
 
     protected abstract int getWindowWidth(int screenWidth);
@@ -72,7 +78,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * Can not perform this action after onSaveInstanceState.
      */
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(@NonNull FragmentManager manager, String tag) {
         if (isAdded()) {
             return;
         }
@@ -91,7 +97,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * Can not perform this action after onSaveInstanceState.
      */
     @Override
-    public int show(FragmentTransaction transaction, String tag) {
+    public int show(@NonNull FragmentTransaction transaction, String tag) {
         if (isAdded()) {
             return mBackStackId;
         }
