@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import silladus.basic.view.GrayFrameLayout;
+
 /**
  * Created by silladus on 2018/5/31/0031.
  * GitHub: https://github.com/silladus
@@ -22,7 +24,13 @@ public class ActivityInitConfig {
     private boolean isClipToPadding;
 
     public ActivityInitConfig(Activity activity, IStatusBar iStatusBar) {
+        this(activity, iStatusBar, false);
+    }
+
+    public ActivityInitConfig(Activity activity, IStatusBar iStatusBar, boolean isGray) {
         if (!(activity instanceof IActivity)) {
+            ViewGroup view = activity.findViewById(android.R.id.content);
+            setGrayView(view, isGray);
             return;
         }
 
@@ -44,6 +52,9 @@ public class ActivityInitConfig {
             statusBarColor = iStatusBar.statusBarColor();
         }
 
+        if (isGray) {
+            statusBarColor = 0xFFA9A9A9;
+        }
         statusBar(statusBarColor, activity);
 
         ViewGroup view = activity.findViewById(android.R.id.content);
@@ -52,12 +63,27 @@ public class ActivityInitConfig {
             view.setFitsSystemWindows(true);
         }
 
+        setGrayView(view, isGray);
+
         // inflate root layout
         int layoutRes = ((IActivity) activity).getLayoutRes();
         activity.setContentView(layoutRes);
 
         ((IActivity) activity).onConfigInit(this);
 
+    }
+
+    private void setGrayView(View view, boolean isGray) {
+        if (isGray) {
+            ViewGroup.LayoutParams lp = view.getLayoutParams();
+            ViewGroup rootView = (ViewGroup) view.getParent();
+            rootView.removeView(view);
+
+            GrayFrameLayout layout = new GrayFrameLayout(rootView.getContext());
+            layout.addView(view);
+
+            rootView.addView(layout, lp);
+        }
     }
 
     /**
