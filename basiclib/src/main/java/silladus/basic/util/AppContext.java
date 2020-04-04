@@ -24,7 +24,7 @@ public final class AppContext {
         app = context;
     }
 
-    public static Context get() {
+    public static Application get() {
         if (app == null) {
             try {
                 Application application = (Application) Class.forName("android.app.ActivityThread")

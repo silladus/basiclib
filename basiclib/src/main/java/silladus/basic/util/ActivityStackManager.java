@@ -64,6 +64,14 @@ public class ActivityStackManager {
         activity.finish();
     }
 
+    public void toggleActivity(Class<? extends Activity> newActivity) {
+        if (isExistActivity(newActivity)) {
+            popToTopActivity(newActivity);
+        } else {
+            startNewActivity(newActivity);
+        }
+    }
+
     public void setTopActivity(Activity activity) {
         if (activities.size() > 0) {
             int location = activities.search(activity);
