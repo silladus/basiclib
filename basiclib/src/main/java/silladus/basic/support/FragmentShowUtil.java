@@ -72,7 +72,9 @@ public class FragmentShowUtil {
                 }
             }
         }
-        ft.commit();
+//        ft.commit();
+        ft.commitAllowingStateLoss();
+        fm.executePendingTransactions();
         currentIndex = index;
         return this;
     }
@@ -95,6 +97,7 @@ public class FragmentShowUtil {
             }
         }
         ft.commitAllowingStateLoss();
+        fm.executePendingTransactions();
     }
 
     public int getCurrentIndex() {
