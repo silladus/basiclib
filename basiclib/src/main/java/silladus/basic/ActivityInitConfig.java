@@ -2,10 +2,10 @@ package silladus.basic;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Build;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,8 +15,6 @@ import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import silladus.basic.view.GrayFrameLayout;
 
 /**
  * Created by silladus on 2018/5/31/0031.
@@ -32,8 +30,7 @@ public class ActivityInitConfig {
 
     public ActivityInitConfig(Activity activity, IStatusBar iStatusBar, boolean isGray) {
         if (!(activity instanceof IActivity)) {
-            ViewGroup view = activity.findViewById(android.R.id.content);
-            setGrayView(view, isGray, activity);
+            setGrayView(isGray, activity);
             return;
         }
 
@@ -66,7 +63,7 @@ public class ActivityInitConfig {
             view.setFitsSystemWindows(true);
         }
 
-        setGrayView(view, isGray, activity);
+        setGrayView(isGray, activity);
 
         // inflate root layout
         int layoutRes = ((IActivity) activity).getLayoutRes();
@@ -76,30 +73,38 @@ public class ActivityInitConfig {
 
     }
 
-    private void setGrayView(View view, boolean isGray, Activity activity) {
+    private void setGrayView(boolean isGray, Activity activity) {
         if (isGray) {
-            //针对设置了windowBackground的情况
-            Drawable backgroundDrawable;
-            TypedValue a = new TypedValue();
-            activity.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);
-            if (a.type >= TypedValue.TYPE_FIRST_COLOR_INT && a.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-                // windowBackground is a color
-                int color = a.data;
-                backgroundDrawable = new ColorDrawable(color);
-            } else {
-                // windowBackground is not a color, probably a drawable
-                backgroundDrawable = activity.getResources().getDrawable(a.resourceId);
-            }
+//            ViewGroup view = activity.findViewById(android.R.id.content);
+//            //针对设置了windowBackground的情况
+//            Drawable backgroundDrawable;
+//            TypedValue a = new TypedValue();
+//            activity.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);
+//            if (a.type >= TypedValue.TYPE_FIRST_COLOR_INT && a.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+//                // windowBackground is a color
+//                int color = a.data;
+//                backgroundDrawable = new ColorDrawable(color);
+//            } else {
+//                // windowBackground is not a color, probably a drawable
+//                backgroundDrawable = activity.getResources().getDrawable(a.resourceId);
+//            }
+//
+//            ViewGroup.LayoutParams lp = view.getLayoutParams();
+//            ViewGroup rootView = (ViewGroup) view.getParent();
+//            rootView.removeView(view);
+//
+//            GrayFrameLayout layout = new GrayFrameLayout(activity);
+//            layout.setBackground(backgroundDrawable);
+//            layout.addView(view);
+//
+//            rootView.addView(layout, lp);
 
-            ViewGroup.LayoutParams lp = view.getLayoutParams();
-            ViewGroup rootView = (ViewGroup) view.getParent();
-            rootView.removeView(view);
+            Paint paint = new Paint();
+            ColorMatrix cm = new ColorMatrix();
+            cm.setSaturation(0);
+            paint.setColorFilter(new ColorMatrixColorFilter(cm));
+            activity.getWindow().getDecorView().setLayerType(View.LAYER_TYPE_HARDWARE, paint);
 
-            GrayFrameLayout layout = new GrayFrameLayout(activity);
-            layout.setBackground(backgroundDrawable);
-            layout.addView(view);
-
-            rootView.addView(layout, lp);
         }
     }
 
