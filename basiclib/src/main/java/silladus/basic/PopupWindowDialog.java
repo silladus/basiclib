@@ -23,8 +23,8 @@ public class PopupWindowDialog {
     }
 
     private int[] calculatePopWindowPos(View anchorView, View contentView) {
-        int windowPos[] = new int[2];
-        int anchorLoc[] = new int[2];
+        int[] windowPos = new int[2];
+        int[] anchorLoc = new int[2];
         // 获取锚点View在屏幕上的左上角坐标位置
         anchorView.getLocationOnScreen(anchorLoc);
         int anchorHeight = anchorView.getHeight();

@@ -60,7 +60,7 @@ public class ActivityStackManager {
 
     public void startNewActivity(Class<? extends Activity> newActivity) {
         Activity activity = getCurrentActivity();
-        activity.startActivity(new Intent(new Intent(activity, newActivity)));
+        activity.startActivity(new Intent(activity, newActivity));
         activity.finish();
     }
 
