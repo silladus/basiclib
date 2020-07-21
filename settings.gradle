@@ -1,1 +1,3 @@
+include ':mvvm-hilt'
+include ':mvvm-dagger'
 include ':app', ':basiclib'
