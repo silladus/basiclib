@@ -4,22 +4,22 @@ import android.app.Activity;
 import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import silladus.basic.BasicFragmentLifecycleCallbacks;
-import silladus.basic.BasicActivityLifecycleCallbacksImp;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
+import silladus.basic.IActivity;
 
 public class App extends Application {
 
@@ -34,9 +34,9 @@ public class App extends Application {
     private void initActivity() {
         registerActivityLifecycleCallbacks(new BasicActivityLifecycleCallbacksImp() {
             @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
                 super.onActivityCreated(activity, savedInstanceState);
-                if (activity instanceof AppCompatActivity) {
+                if (activity instanceof IActivity) {
                     initToolbar((AppCompatActivity) activity);
                 }
                 //LinearLayout
@@ -47,7 +47,7 @@ public class App extends Application {
                     ((FragmentActivity) activity)
                             .getSupportFragmentManager()
                             .registerFragmentLifecycleCallbacks(
-                                    new BasicFragmentLifecycleCallbacks(){
+                                    new BasicFragmentLifecycleCallbacks() {
                                         @Override
                                         public void onFragmentViewCreated(@NonNull FragmentManager fm,
                                                                           @NonNull Fragment f,
@@ -76,7 +76,7 @@ public class App extends Application {
 
             @Override
             public int statusBarColor() {
-                return getResources().getColor(R.color.main);
+                return Color.parseColor("#ff303030");
             }
 
         });

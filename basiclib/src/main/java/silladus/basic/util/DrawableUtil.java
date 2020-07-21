@@ -73,6 +73,7 @@ public final class DrawableUtil {
         for (int i = 0; i < drawables.length; i++) {
             if (position == i) {
                 drawables[position] = d;
+                break;
             }
         }
         // start / top / end / bottom

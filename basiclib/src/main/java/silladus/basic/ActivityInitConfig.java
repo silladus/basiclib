@@ -20,6 +20,25 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  * Created by silladus on 2018/5/31/0031.
  * GitHub: https://github.com/silladus
  * Description:
+ *
+ * <pre><code>
+ *
+ * app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+ *     @Override
+ *     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+ *         // Common Activity Config.
+ *         new ActivityInitConfig(activity, iStatusBar);
+ *
+ *         ...
+ *     }
+ *
+ *     IStatusBar iStatusBar = new IStatusBar() {
+ *         ...
+ *     }
+ *
+ *     ...
+ * })
+ * </code></pre>
  */
 public class ActivityInitConfig {
     private boolean isClipToPadding;
@@ -29,6 +48,10 @@ public class ActivityInitConfig {
     }
 
     public ActivityInitConfig(Activity activity, IStatusBar iStatusBar, boolean isGray) {
+        initConfig(activity, iStatusBar, isGray);
+    }
+
+    protected void initConfig(Activity activity, IStatusBar iStatusBar, boolean isGray) {
         if (!(activity instanceof IActivity)) {
             setGrayView(isGray, activity);
             return;

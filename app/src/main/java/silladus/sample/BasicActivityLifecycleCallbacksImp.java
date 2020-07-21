@@ -1,9 +1,14 @@
-package silladus.basic;
+package silladus.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+
+import silladus.basic.ActivityInitConfig;
+import silladus.basic.IStatusBar;
 
 /**
  * Created by silladus on 2018/5/31/0031.
@@ -16,7 +21,7 @@ public abstract class BasicActivityLifecycleCallbacksImp
 
     @CallSuper
     @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+    public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
         // Common Activity Config.
         new ActivityInitConfig(activity, this);
 
