@@ -31,8 +31,8 @@ class App : Application(), HasAndroidInjector {
         appContext = this
 
         AppInjector.init(this)
+        CommonActivityConfig.init(this)
 
         Timber.plant(DebugTree())
-
     }
 }
