@@ -1,4 +1,4 @@
-package com.example.mvvm_dagger.data.entry;
+package com.example.mvvm_dagger.entity;
 
 import androidx.annotation.Nullable;
 

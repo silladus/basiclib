@@ -3,7 +3,7 @@ package com.example.mvvm_dagger
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mvvm_dagger.data.entry.Response
+import com.example.mvvm_dagger.entity.Response
 import com.example.mvvm_dagger.ext.awaitOrError
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
@@ -18,7 +18,7 @@ import javax.inject.Inject
  */
 class MainViewModel @Inject constructor(/*private val userRepository: UserRepository*/) : ViewModel() {
 
-    val liveData by lazy { MutableLiveData<com.example.mvvm_dagger.data.entry.Result<String>>() }
+    val liveData by lazy { MutableLiveData<com.example.mvvm_dagger.entity.Result<String>>() }
 
 //    val liveData by lazy { MutableLiveData<String>() }
 

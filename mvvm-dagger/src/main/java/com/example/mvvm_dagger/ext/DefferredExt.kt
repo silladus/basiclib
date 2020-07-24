@@ -1,6 +1,6 @@
 package com.example.mvvm_dagger.ext
 
-import com.example.mvvm_dagger.data.entry.Response
+import com.example.mvvm_dagger.entity.Response
 import kotlinx.coroutines.Deferred
 
 /**
@@ -16,11 +16,11 @@ import kotlinx.coroutines.Deferred
 //    }
 //}
 
-suspend fun <T> Deferred<Response<T>>.awaitOrError(): com.example.mvvm_dagger.data.entry.Result<T> {
+suspend fun <T> Deferred<Response<T>>.awaitOrError(): com.example.mvvm_dagger.entity.Result<T> {
     return try {
         val ret = await()
-        com.example.mvvm_dagger.data.entry.Result.of(ret.body())
+        com.example.mvvm_dagger.entity.Result.of(ret.body())
     } catch (e: Exception) {
-        com.example.mvvm_dagger.data.entry.Result.of(e)
+        com.example.mvvm_dagger.entity.Result.of(e)
     }
 }

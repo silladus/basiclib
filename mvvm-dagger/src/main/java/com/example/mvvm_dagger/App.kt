@@ -33,6 +33,8 @@ class App : Application(), HasAndroidInjector {
         AppInjector.init(this)
         CommonActivityConfig.init(this)
 
-        Timber.plant(DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
     }
 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ComplexColorCompat
 import silladus.basic.ActivityInitConfig
 import silladus.basic.IStatusBar
 
