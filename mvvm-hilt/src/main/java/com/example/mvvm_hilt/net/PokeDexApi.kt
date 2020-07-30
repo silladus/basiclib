@@ -1,11 +1,12 @@
 package com.example.mvvm_hilt.net
 
+import com.example.mvvm_hilt.entity.PokemonInfo
 import com.example.mvvm_hilt.entity.PokemonResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface PokedexService {
+interface PokeDexApi {
 
     @GET("pokemon")
     suspend fun fetchPokemonList(
@@ -14,5 +15,5 @@ interface PokedexService {
     ): PokemonResponse
 
     @GET("pokemon/{name}")
-    suspend fun fetchPokemonInfo(@Path("name") name: String): Any
+    suspend fun fetchPokemonInfo(@Path("name") name: String): PokemonInfo
 }

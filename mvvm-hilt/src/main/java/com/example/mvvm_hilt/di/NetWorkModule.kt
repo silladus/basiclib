@@ -1,7 +1,7 @@
 package com.example.mvvm_hilt.di
 
 import com.example.mvvm_hilt.BuildConfig
-import com.example.mvvm_hilt.net.PokedexService
+import com.example.mvvm_hilt.net.PokeDexApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,8 +51,8 @@ object NetWorkModule {
 
     @Singleton
     @Provides
-    fun providePokedexService(retrofit: Retrofit): PokedexService {
-        return retrofit.create(PokedexService::class.java)
+    fun providePokeDexApi(retrofit: Retrofit): PokeDexApi {
+        return retrofit.create(PokeDexApi::class.java)
     }
 
 //    @Singleton

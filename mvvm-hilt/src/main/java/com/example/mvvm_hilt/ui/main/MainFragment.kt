@@ -12,6 +12,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.example.mvvm_hilt.databinding.FragmentMainBinding
 import com.example.mvvm_hilt.di.FragmentScope
 import com.example.mvvm_hilt.ext.toast
+import com.example.mvvm_hilt.ui.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import silladus.basic.adapter.GridItemDecoration
 import timber.log.Timber
@@ -36,7 +37,11 @@ class MainFragment : Fragment() {
         val binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.apply {
             val adapter = MultiTypeAdapter()
-            adapter.register(PokeItemViewBinder())
+            adapter.register(PokeItemViewBinder {
+                activity?.apply {
+                    DetailActivity.start(this, it)
+                }
+            })
             recyclerView.layoutManager = GridLayoutManager(context, 2)
             recyclerView.addItemDecoration(GridItemDecoration(2))
             recyclerView.adapter = adapter

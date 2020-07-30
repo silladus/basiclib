@@ -12,15 +12,15 @@ import javax.inject.Inject
  * github:https://github.com/silladus
  * des:
  */
-class MainRepository @Inject constructor(
-        private val pokedexApi: PokeDexApi
+class DetailRepository @Inject constructor(
+        private val pokeDexApi: PokeDexApi
 ) {
 
     suspend fun getData(
-            page: Int,
+            name: String,
             onSuccess: () -> Unit
     ) = flow {
-        val response = wrapDataOrError { pokedexApi.fetchPokemonList(20, page * 20) }
+        val response = wrapDataOrError { pokeDexApi.fetchPokemonInfo(name) }
         emit(response)
         onSuccess()
     }.flowOn(Dispatchers.IO)
