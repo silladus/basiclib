@@ -14,19 +14,22 @@ import com.example.mvvm_hilt.repository.MainRepository
  */
 class MainViewModel @ViewModelInject constructor(private val repository: MainRepository /*@Assisted private val savedState: SavedStateHandle*/) : ViewModel() {
 
-    val isLoading = MutableLiveData<Boolean>()
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+    
     val liveData: LiveData<Result<PokemonResponse>> /*by lazy { MutableLiveData<com.example.mvvm_hilt.entity.Result<PokemonResponse>>() }*/
 
     private val reqLiveData = MutableLiveData<Int>()
 
     init {
         liveData = reqLiveData.switchMap {
-            isLoading.value = true
+            _isLoading.value = true
             launchOnViewModelScope {
                 repository.getData(
                         page = it,
                         onSuccess = {
-                            isLoading.postValue(false)
+                            _isLoading.postValue(false)
                         }
                 ).asLiveData()
             }

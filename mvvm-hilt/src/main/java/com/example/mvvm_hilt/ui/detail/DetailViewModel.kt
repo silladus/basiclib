@@ -14,19 +14,21 @@ import com.example.mvvm_hilt.repository.DetailRepository
  */
 class DetailViewModel @ViewModelInject constructor(private val repository: DetailRepository /*@Assisted private val savedState: SavedStateHandle*/) : ViewModel() {
 
-    val isLoading = MutableLiveData<Boolean>()
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
     val liveData: LiveData<Result<PokemonInfo>>
 
     private val reqLiveData = MutableLiveData<String>()
 
     init {
         liveData = reqLiveData.switchMap {
-            isLoading.value = true
+            _isLoading.value = true
             launchOnViewModelScope {
                 repository.getData(
                         name = it,
                         onSuccess = {
-                            isLoading.postValue(false)
+                            _isLoading.postValue(false)
                         }
                 ).asLiveData()
             }
