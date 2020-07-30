@@ -31,10 +31,10 @@ import com.example.mvvm_hilt.utils.SpacesItemDecoration
 import com.google.android.material.imageview.ShapeableImageView
 import com.skydoves.androidribbon.ribbonView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.withContext
 
 /**
  * create by silladus 2020/7/28
@@ -61,6 +61,46 @@ class DetailActivity : AppCompatActivity(), IAct {
                     .load(pokemonItem.getImageUrl())
                     .into(image)
 
+            GlideApp.with(this@DetailActivity)
+                    .asBitmap()
+                    .load(pokemonItem.getImageUrl())
+                    .listener(object : RequestListener<Bitmap> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                                resource: Bitmap,
+                                model: Any?,
+                                target: Target<Bitmap>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                        ): Boolean {
+                            lifecycleScope.launch {
+                                withContext(SupervisorJob() + Dispatchers.IO) {
+                                    Palette.from(resource).generate()
+                                }.dominantSwatch?.apply {
+                                    header.setBackgroundColor(rgb)
+                                    window.statusBarColor = rgb
+                                }
+                            }
+                            return false
+                        }
+                    })
+                    .into(object : CustomViewTarget<ShapeableImageView, Bitmap>(header) {
+                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+
+                        }
+
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+
+                        }
+
+                        override fun onResourceCleared(placeholder: Drawable?) {
+
+                        }
+                    })
+
             viewModel.apply {
                 isLoading.observe(this@DetailActivity) {
                     progressLoading.gone(!it)
@@ -71,53 +111,7 @@ class DetailActivity : AppCompatActivity(), IAct {
                         return@observe
                     }
 
-                    Timber.e(data.toString())
-
                     data.apply {
-                        GlideApp.with(header.context)
-                                .asBitmap()
-                                .load(pokemonItem.getImageUrl())
-                                .listener(object : RequestListener<Bitmap> {
-                                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-
-                                        return false
-                                    }
-
-                                    override fun onResourceReady(
-                                            resource: Bitmap,
-                                            model: Any?,
-                                            target: Target<Bitmap>?,
-                                            dataSource: DataSource?,
-                                            isFirstResource: Boolean
-                                    ): Boolean {
-
-                                        lifecycleScope.launch {
-
-                                            val p = async(SupervisorJob()) { Palette.from(resource).generate() }.await()
-                                            p.dominantSwatch?.apply {
-                                                header.setBackgroundColor(rgb)
-                                                window.statusBarColor = rgb
-                                            }
-                                        }
-                                        return false
-                                    }
-
-                                })
-                                .into(object : CustomViewTarget<ShapeableImageView, Bitmap>(header) {
-                                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-
-                                    }
-
-                                    override fun onLoadFailed(errorDrawable: Drawable?) {
-
-                                    }
-
-                                    override fun onResourceCleared(placeholder: Drawable?) {
-
-                                    }
-                                })
-
-
                         tvIndex.text = getIdString()
                         tvWeight.text = getWeightString()
                         tvHeight.text = getHeightString()
