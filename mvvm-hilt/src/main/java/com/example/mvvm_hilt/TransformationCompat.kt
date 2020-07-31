@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat
 import com.example.mvvm_hilt.ext.getActivity
 
 /**
@@ -13,10 +14,15 @@ import com.example.mvvm_hilt.ext.getActivity
  * des:
  */
 object TransformationCompat {
-    fun startActivity(transform: View, intent: (Activity) -> Intent) {
+    fun startActivity(transform: View, transitionName: String = "anim", intent: (Activity) -> Intent) {
         val activity = transform.getActivity()
         requireNotNull(activity) { "The context parameter must be an activity's context!" }
-        val bundle = ActivityOptions.makeSceneTransitionAnimation(activity, transform, "anim").toBundle()
+        transform.transitionName = transitionName
+        val bundle = ActivityOptions.makeSceneTransitionAnimation(activity, transform, transitionName).toBundle()
         ActivityCompat.startActivity(activity, intent(activity), bundle)
+    }
+
+    fun applyTransformationParam(activity: Activity, transitionName: String = "anim") {
+        ViewCompat.setTransitionName(activity.findViewById(android.R.id.content), transitionName)
     }
 }

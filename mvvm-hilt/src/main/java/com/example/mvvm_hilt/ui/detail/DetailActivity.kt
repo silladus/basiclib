@@ -49,7 +49,7 @@ class DetailActivity : AppCompatActivity(), IAct {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ViewCompat.setTransitionName(findViewById(android.R.id.content), "anim")
+        TransformationCompat.applyTransformationParam(this)
 
         val binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
