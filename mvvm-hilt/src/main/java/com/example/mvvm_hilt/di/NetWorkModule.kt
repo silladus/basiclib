@@ -54,20 +54,4 @@ object NetWorkModule {
     fun providePokeDexApi(retrofit: Retrofit): PokeDexApi {
         return retrofit.create(PokeDexApi::class.java)
     }
-
-//    @Singleton
-//    @Provides
-//    fun provideDb(app: Application): RecordDb {
-////        return Room
-////            .databaseBuilder(app, RecordDb::class.java, "record.db")
-////            .fallbackToDestructiveMigration()
-////            .build()
-//        return RecordDb.getDb()
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideRecordDao(db: RecordDb): RecordDao {
-//        return db.recordDao()
-//    }
 }

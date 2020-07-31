@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
                         return@observe
                     }
 
-                    adapter.items = ret.results
+                    adapter.items = ret
                     adapter.notifyDataSetChanged()
                 }
 
