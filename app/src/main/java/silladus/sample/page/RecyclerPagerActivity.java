@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +49,7 @@ public class RecyclerPagerActivity extends AppCompatActivity implements IActivit
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTitle("Pager");
         super.onCreate(savedInstanceState);
+        ViewCompat.setTransitionName(findViewById(android.R.id.content), "anim");
 
         tabLayout = findViewById(android.R.id.tabs);
         mViewPager = findViewById(R.id.mViewPager);

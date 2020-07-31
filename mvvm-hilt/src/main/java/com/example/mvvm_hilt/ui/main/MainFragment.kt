@@ -37,9 +37,9 @@ class MainFragment : Fragment() {
         val binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.apply {
             val adapter = MultiTypeAdapter()
-            adapter.register(PokeItemViewBinder {
+            adapter.register(PokeItemViewBinder { view, item ->
                 activity?.apply {
-                    DetailActivity.start(this, it)
+                    DetailActivity.start(view, item)
                 }
             })
             recyclerView.layoutManager = GridLayoutManager(context, 2)
