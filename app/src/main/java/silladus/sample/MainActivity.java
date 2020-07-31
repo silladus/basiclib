@@ -5,14 +5,16 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
 import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
@@ -114,10 +116,20 @@ public class MainActivity extends AppCompatActivity implements IActivity, View.O
         switch (v.getId()) {
             case R.id.btn_pages:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(new Intent(getBaseContext(), RecyclerPagerActivity.class),
-                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                    ActivityCompat.startActivity(
+                            this,
+                            new Intent(getBaseContext(), RecyclerPagerActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(this, mCardView, "anim").toBundle()
+                    );
+//                    ActivityCompat.startActivity(this,
+//                            new Intent(getBaseContext(), RecyclerPagerActivity.class),
+////                            ActivityOptions.makeCustomAnimation(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right).toBundle()
+//                            ActivityOptions.makeScaleUpAnimation(mCardView,
+//                                    0, mCardView.getHeight() / 2, mCardView.getWidth(), mCardView.getHeight()).toBundle()
+//                    );
                 } else {
                     startActivity(new Intent(getBaseContext(), RecyclerPagerActivity.class));
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 }
                 break;
             case R.id.card_view_container:

@@ -1,6 +1,7 @@
 package com.example.mvvm_hilt.ui.main
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
@@ -13,7 +14,7 @@ import com.example.mvvm_hilt.entity.Pokemon
  * github:https://github.com/silladus
  * des:
  */
-class PokeItemViewBinder(val onItemClickListener: (Pokemon) -> Unit) : ItemViewBinder<Pokemon, PokeItemViewBinder.ViewHolder>() {
+class PokeItemViewBinder(val onItemClickListener: (View, Pokemon) -> Unit) : ItemViewBinder<Pokemon, PokeItemViewBinder.ViewHolder>() {
     class ViewHolder(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: ViewHolder, item: Pokemon) {
@@ -24,8 +25,11 @@ class PokeItemViewBinder(val onItemClickListener: (Pokemon) -> Unit) : ItemViewB
                     .load(item.getImageUrl())
                     .into(ivIdle)
 
-            root.setOnClickListener {
-                onItemClickListener(item)
+            root.apply {
+                transitionName = "anim"
+                setOnClickListener {
+                    onItemClickListener(it, item)
+                }
             }
         }
     }

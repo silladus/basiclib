@@ -1,5 +1,7 @@
 package com.example.mvvm_hilt.ext
 
+import android.app.Activity
+import android.content.ContextWrapper
 import android.view.View
 
 /**
@@ -7,10 +9,22 @@ import android.view.View
  * github:https://github.com/silladus
  * des:
  */
-fun View.gone(isGone:Boolean){
+fun View.gone(isGone: Boolean) {
     visibility = if (isGone) {
         View.GONE
-    } else{
+    } else {
         View.VISIBLE
     }
+}
+
+/** gets an activity from a context. */
+internal fun View.getActivity(): Activity? {
+    var context = this.context
+    while (context is ContextWrapper) {
+        if (context is Activity) {
+            return context
+        }
+        context = context.baseContext
+    }
+    return null
 }

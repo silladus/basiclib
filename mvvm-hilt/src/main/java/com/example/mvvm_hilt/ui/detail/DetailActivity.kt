@@ -1,15 +1,15 @@
 package com.example.mvvm_hilt.ui.detail
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.load.DataSource
@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.mvvm_hilt.GlideApp
 import com.example.mvvm_hilt.IAct
+import com.example.mvvm_hilt.TransformationCompat
 import com.example.mvvm_hilt.databinding.ActivityDetailBinding
 import com.example.mvvm_hilt.entity.Pokemon
 import com.example.mvvm_hilt.entity.PokemonInfo
@@ -48,6 +49,7 @@ class DetailActivity : AppCompatActivity(), IAct {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ViewCompat.setTransitionName(findViewById(android.R.id.content), "anim")
 
         val binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -181,8 +183,11 @@ class DetailActivity : AppCompatActivity(), IAct {
 
         private const val EXTRA_POKEMON = "EXTRA_POKEMON"
 
-        fun start(activity: Activity, pokemon: Pokemon) {
-            ActivityCompat.startActivity(activity, Intent(activity, DetailActivity::class.java).putExtra(EXTRA_POKEMON, pokemon), null)
+        fun start(transform: View, pokemon: Pokemon) {
+            TransformationCompat.startActivity(transform) {
+                Intent(it, DetailActivity::class.java)
+                        .putExtra(EXTRA_POKEMON, pokemon)
+            }
         }
     }
 }
