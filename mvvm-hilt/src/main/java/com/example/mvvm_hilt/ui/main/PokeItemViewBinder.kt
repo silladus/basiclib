@@ -26,7 +26,6 @@ class PokeItemViewBinder(val onItemClickListener: (View, Pokemon) -> Unit) : Ite
                     .into(ivIdle)
 
             root.apply {
-                transitionName = "anim"
                 setOnClickListener {
                     onItemClickListener(it, item)
                 }
