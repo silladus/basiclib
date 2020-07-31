@@ -1,10 +1,12 @@
 package com.example.mvvm_hilt.repository
 
+import com.example.mvvm_hilt.db.PokemonDao
 import com.example.mvvm_hilt.entity.Result
 import com.example.mvvm_hilt.net.PokeDexApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -13,16 +15,28 @@ import javax.inject.Inject
  * des:
  */
 class MainRepository @Inject constructor(
-        private val pokedexApi: PokeDexApi
+        private val pokeDexApi: PokeDexApi,
+        private val pokemonDao: PokemonDao
 ) {
 
     suspend fun getData(
             page: Int,
             onSuccess: () -> Unit
     ) = flow {
-        val response = wrapDataOrError { pokedexApi.fetchPokemonList(20, page * 20) }
-        emit(response)
-        onSuccess()
+        val data = pokemonDao.getPokemonList(page)
+        Timber.e("Pokemon from db:$data")
+        if (data.isEmpty()) {
+            val response = wrapDataOrError {
+                pokeDexApi.fetchPokemonList(20, page * 20).results.also {
+                    pokemonDao.insertPokemonList(it)
+                }
+            }
+            emit(response)
+            onSuccess()
+        } else {
+            emit(wrapDataOrError { data })
+            onSuccess()
+        }
     }.flowOn(Dispatchers.IO)
 
     private inline fun <T> wrapDataOrError(d: () -> T): Result<T> {

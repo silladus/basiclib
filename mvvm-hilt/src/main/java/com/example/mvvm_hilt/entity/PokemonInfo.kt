@@ -16,16 +16,18 @@
 
 package com.example.mvvm_hilt.entity
 
-//import androidx.room.Entity
-//import androidx.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 //import com.squareup.moshi.Json
 //import com.squareup.moshi.JsonClass
 import kotlin.random.Random
 
-//@Entity
+@Entity
+@TypeConverters(TypeResponseConverter::class)
 //@JsonClass(generateAdapter = true)
 data class PokemonInfo(
-        /*@field:Json(name = "id") @PrimaryKey*/ val id: Int,
+        /*@field:Json(name = "id")*/ @PrimaryKey val id: Int,
         /*@field:Json(name = "name")*/ val name: String,
         /*@field:Json(name = "height")*/ val height: Int,
         /*@field:Json(name = "weight")*/ val weight: Int,
