@@ -26,6 +26,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
+    private val list = ArrayList<Any>()
+
     @FragmentScope
     @Inject
     lateinit var fragmentHashCode: String
@@ -46,6 +48,13 @@ class MainFragment : Fragment() {
             recyclerView.addItemDecoration(GridItemDecoration(2))
             recyclerView.adapter = adapter
 
+            val paging = RecyclerViewPaging(
+                    recyclerView,
+                    isLoading = { viewModel.isLoading.value!! },
+                    loadMore = { viewModel.getData(it) },
+                    onLast = { false }
+            )
+
             viewModel.apply {
                 isLoading.observe(viewLifecycleOwner) {
                     if (it) {
@@ -62,13 +71,16 @@ class MainFragment : Fragment() {
                         return@observe
                     }
 
-                    adapter.items = ret
+                    if (paging.currentPage == 0 && list.isNotEmpty()) {
+                        list.clear()
+                    }
+                    list.addAll(ret)
+                    adapter.items = list
                     adapter.notifyDataSetChanged()
                 }
 
                 getData(0)
             }
-
         }
         return binding.root
     }

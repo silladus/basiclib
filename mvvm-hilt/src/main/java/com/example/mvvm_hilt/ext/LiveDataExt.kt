@@ -17,7 +17,3 @@ suspend fun <T> LiveData<T>.observe(owner: LifecycleOwner): T = suspendCoroutine
         cont.resume(it)
     })
 }
-
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, block: (T) -> Unit) {
-    observe(owner, Observer { block(it) })
-}

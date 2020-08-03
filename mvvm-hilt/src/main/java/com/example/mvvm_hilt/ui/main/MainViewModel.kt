@@ -19,7 +19,7 @@ class MainViewModel @ViewModelInject constructor(private val repository: MainRep
     val isLoading: LiveData<Boolean>
         get() = _isLoading
     
-    val liveData: LiveData<Result<List<Pokemon>>> /*by lazy { MutableLiveData<com.example.mvvm_hilt.entity.Result<PokemonResponse>>() }*/
+    val liveData: LiveData<Result<List<Pokemon>>>
 
     private val reqLiveData = MutableLiveData<Int>()
 
