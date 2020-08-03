@@ -34,7 +34,7 @@ class DetailRepository @Inject constructor(
             emit(response)
             onSuccess()
         } else {
-            emit(Result.of(data))
+            data.also { emit(wrapDataOrError { it }) }
             onSuccess()
         }
     }.flowOn(Dispatchers.IO)

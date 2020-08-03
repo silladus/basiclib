@@ -17,6 +17,7 @@ class DetailViewModel @ViewModelInject constructor(private val repository: Detai
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = _isLoading
+    
     val liveData: LiveData<Result<PokemonInfo>>
 
     private val reqLiveData = MutableLiveData<String>()

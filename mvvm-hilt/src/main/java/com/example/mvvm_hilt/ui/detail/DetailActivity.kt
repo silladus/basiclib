@@ -9,8 +9,8 @@ import android.view.Gravity
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -25,7 +25,6 @@ import com.example.mvvm_hilt.databinding.ActivityDetailBinding
 import com.example.mvvm_hilt.entity.Pokemon
 import com.example.mvvm_hilt.entity.PokemonInfo
 import com.example.mvvm_hilt.ext.gone
-import com.example.mvvm_hilt.ext.observe
 import com.example.mvvm_hilt.ext.toast
 import com.example.mvvm_hilt.utils.PokemonTypeUtils
 import com.example.mvvm_hilt.utils.SpacesItemDecoration

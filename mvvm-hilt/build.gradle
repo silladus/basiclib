@@ -75,6 +75,8 @@ dependencies {
     implementation "androidx.room:room-ktx:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
 
+//    implementation 'androidx.paging:paging-runtime:3.0.0-alpha03'
+
     // 网络请求相关
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
