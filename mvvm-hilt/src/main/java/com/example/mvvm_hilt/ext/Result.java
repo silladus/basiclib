@@ -1,4 +1,4 @@
-package com.example.mvvm_hilt.entity;
+package com.example.mvvm_hilt.ext;
 
 import androidx.annotation.Nullable;
 

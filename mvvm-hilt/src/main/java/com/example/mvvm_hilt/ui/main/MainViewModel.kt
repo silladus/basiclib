@@ -3,8 +3,7 @@ package com.example.mvvm_hilt.ui.main
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.mvvm_hilt.entity.Pokemon
-import com.example.mvvm_hilt.entity.PokemonResponse
-import com.example.mvvm_hilt.entity.Result
+import com.example.mvvm_hilt.ext.Result
 import com.example.mvvm_hilt.ext.launchOnViewModelScope
 import com.example.mvvm_hilt.repository.MainRepository
 
@@ -18,7 +17,7 @@ class MainViewModel @ViewModelInject constructor(private val repository: MainRep
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = _isLoading
-    
+
     val liveData: LiveData<Result<List<Pokemon>>>
 
     private val reqLiveData = MutableLiveData<Int>()

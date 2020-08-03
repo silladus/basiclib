@@ -1,7 +1,8 @@
 package com.example.mvvm_hilt.repository
 
 import com.example.mvvm_hilt.db.PokemonDao
-import com.example.mvvm_hilt.entity.Result
+import com.example.mvvm_hilt.ext.IRepository
+import com.example.mvvm_hilt.ext.wrapDataOrError
 import com.example.mvvm_hilt.net.PokeDexApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -17,7 +18,7 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
         private val pokeDexApi: PokeDexApi,
         private val pokemonDao: PokemonDao
-) {
+) : IRepository {
 
     suspend fun getData(
             page: Int,
@@ -39,11 +40,4 @@ class MainRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    private inline fun <T> wrapDataOrError(d: () -> T): Result<T> {
-        return try {
-            Result.of(d())
-        } catch (e: Exception) {
-            Result.of(e)
-        }
-    }
 }
