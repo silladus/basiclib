@@ -3,7 +3,7 @@ package com.example.mvvm_hilt.ui.detail
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.mvvm_hilt.entity.PokemonInfo
-import com.example.mvvm_hilt.entity.Result
+import com.example.mvvm_hilt.ext.Result
 import com.example.mvvm_hilt.ext.launchOnViewModelScope
 import com.example.mvvm_hilt.repository.DetailRepository
 
