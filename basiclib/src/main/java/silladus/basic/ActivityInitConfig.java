@@ -144,6 +144,7 @@ public class ActivityInitConfig {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 5.0以上使用原生方法
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             // 透明状态栏
             if (!isClipToPadding) {
                 colorInt = Color.TRANSPARENT;
@@ -152,9 +153,11 @@ public class ActivityInitConfig {
             }
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(colorInt);
+//            window.setNavigationBarColor(Color.WHITE);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 状态栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             if (isClipToPadding) {
                 // Android 4.4沉浸式
                 SystemBarTintManager tintManager = new SystemBarTintManager(activity);
