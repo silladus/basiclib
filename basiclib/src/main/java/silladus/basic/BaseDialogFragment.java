@@ -20,14 +20,18 @@ import androidx.fragment.app.FragmentTransaction;
 public abstract class BaseDialogFragment extends DialogFragment {
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setStyle(STYLE_NO_TITLE, getTheme());
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initDialog();
     }
 
     private void initDialog() {
-
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setCancelable(getCancelable());
 
