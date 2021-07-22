@@ -1,11 +1,14 @@
 package silladus.basic.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -58,8 +61,6 @@ public final class StatusBarUtil {
     /**
      * 设置图片背景状态栏
      *
-     * @param act
-     * @param bg
      * @return 人为设置的状态栏View
      */
     public static View setStatusBarView(Activity act, Drawable bg) {
@@ -123,24 +124,52 @@ public final class StatusBarUtil {
     }
 
     /**
-     * 状态栏暗色模式，清除MIUI、Flyme或6.0以上版本状态栏黑色文字、图标
+     * 状态栏模式，isDark == false设置状态栏黑色文字、图标，
+     * 适配4.4以上版本MIUI V6、Flyme和6.0以上版本其他Android
      */
-    public static void statusBarDarkMode(Window window, @SystemAPI int type) {
+    public static void statusBarMode(Window window, @SystemAPI int type, boolean isDark) {
         switch (type) {
             case MIUI:
-                MIUISetStatusBarLightMode(window, false);
+                MIUISetStatusBarLightMode(window, isDark);
                 break;
             case FLYME:
-                FlymeSetStatusBarLightMode(window, false);
+                FlymeSetStatusBarLightMode(window, isDark);
                 break;
             case M:
-                MSetStatusBarLightMode(window, false);
+                MSetStatusBarLightMode(window, isDark);
                 break;
             case NO:
             default:
                 break;
         }
+    }
 
+    /**
+     * 状态栏亮色模式，设置状态栏黑色文字、图标，
+     * 适配4.4以上版本MIUI V6、Flyme和6.0以上版本其他Android
+     *
+     * for example.
+     *
+     * int ui = 0;
+     * // 未知Ui系统的情况下
+     * if (ui == 0) {
+     *     // 记录返回值
+     *     ui = statusBarLightMode(window);
+     * } else {
+     *     // 已知Ui系统的情况下
+     *     statusBarLightMode(window, ui);
+     * }
+     *
+     */
+    public static void statusBarLightMode(Window window, @SystemAPI int type) {
+        statusBarMode(window, type, true);
+    }
+
+    /**
+     * 状态栏暗色模式，清除MIUI、Flyme或6.0以上版本状态栏黑色文字、图标
+     */
+    public static void statusBarDarkMode(Window window, @SystemAPI int type) {
+        statusBarMode(window, type, false);
     }
 
     /**
@@ -210,8 +239,8 @@ public final class StatusBarUtil {
         boolean result = false;
 
         try {
-            Class clazz = window.getClass();
-            Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Class<?> clazz = window.getClass();
+            @SuppressLint("PrivateApi") Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
             Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
             int darkModeFlag = field.getInt(layoutParams);
             Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
