@@ -16,6 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import silladus.basic.systembar.*;
+
 /**
  * Created by silladus on 2018/5/31/0031.
  * GitHub: https://github.com/silladus
@@ -41,7 +46,8 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  * </code></pre>
  */
 public class ActivityInitConfig {
-    private boolean isClipToPadding;
+    private DefaultSystemBar defaultSystemBar;
+    private static List<PropertyClone> propertyCloneList;
 
     public ActivityInitConfig(Activity activity, IStatusBar iStatusBar) {
         this(activity, iStatusBar, false);
@@ -63,25 +69,31 @@ public class ActivityInitConfig {
             ((AppCompatActivity) activity).supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
-        int statusBarColor;
-        if (activity instanceof IStatusBar) {
-            isClipToPadding = ((IStatusBar) activity).isClipToPadding();
-            statusBarColor = ((IStatusBar) activity).statusBarColor();
-        } else if (activity instanceof IStatusBarColor) {
-            isClipToPadding = iStatusBar.isClipToPadding();
-            statusBarColor = ((IStatusBarColor) activity).statusBarColor();
-        } else {
-            isClipToPadding = iStatusBar.isClipToPadding();
-            statusBarColor = iStatusBar.statusBarColor();
+        if (propertyCloneList == null) {
+            // 责任链模式设置参数
+            propertyCloneList = new ArrayList<>();
+            propertyCloneList.add(new SystemBarCloneByNavigationBarEnable());
+            propertyCloneList.add(new SystemBarCloneByStatusBarEnable());
+        }
+
+        DefaultSystemBar defaultSystemBar = new DefaultSystemBar(propertyCloneList);
+        // 优先取activity中的配置
+        boolean hadClone = defaultSystemBar.cloneBy(activity);
+        // activity中没有配置则取通用配置
+        if (!hadClone) {
+            defaultSystemBar.cloneBy(iStatusBar);
         }
 
         if (isGray) {
-            statusBarColor = 0xFFA9A9A9;
+            defaultSystemBar.setStatusBarColor(0xFFA9A9A9);
         }
-        statusBar(statusBarColor, activity);
+
+        this.defaultSystemBar = defaultSystemBar;
+
+        systemBar(defaultSystemBar, activity);
 
         ViewGroup view = activity.findViewById(android.R.id.content);
-        if (isClipToPadding) {
+        if (defaultSystemBar.isClipToPadding()) {
             view.setClipToPadding(true);
             view.setFitsSystemWindows(true);
         }
@@ -135,29 +147,45 @@ public class ActivityInitConfig {
 
     /**
      * Android 沉浸式状态栏
-     *
-     * @param colorInt color value
      */
-    public final void statusBar(@ColorInt int colorInt, Activity activity) {
+    public final void statusBar(@ColorInt int color, Activity activity) {
+        defaultSystemBar.setStatusBarColor(color);
+        systemBar(defaultSystemBar, activity);
+    }
+
+    public final void systemBar(ISystemBar systemBar, Activity activity) {
         Window window = activity.getWindow();
+        int statusBarColor = systemBar.statusBarColor();
+        boolean isClipToPadding = systemBar.isClipToPadding();
+
         // 沉浸式状态栏
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View decorView = window.getDecorView();
+            int decorViewFlag = decorView.getSystemUiVisibility();
             // 5.0以上使用原生方法
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             // 透明状态栏
             if (!isClipToPadding) {
-                colorInt = Color.TRANSPARENT;
-                window.getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                statusBarColor = Color.TRANSPARENT;
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             }
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(colorInt);
-//            window.setNavigationBarColor(Color.WHITE);
+            window.setStatusBarColor(statusBarColor);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (systemBar.lightStatusBar()) {
+                    decorViewFlag |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                }
+                if (systemBar.lightNavigationBar()) {
+                    decorViewFlag |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                }
+                decorView.setSystemUiVisibility(decorViewFlag);
+                window.setNavigationBarColor(systemBar.getNavigationBarColor());
+            }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 状态栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             if (isClipToPadding) {
                 // Android 4.4沉浸式
                 SystemBarTintManager tintManager = new SystemBarTintManager(activity);
@@ -166,7 +194,8 @@ public class ActivityInitConfig {
                 // enable navigation bar tint
                 tintManager.setNavigationBarTintEnabled(true);
                 // 给状态栏设置颜色
-                tintManager.setStatusBarTintColor(colorInt);
+                tintManager.setStatusBarTintColor(statusBarColor);
+                tintManager.setNavigationBarTintColor(systemBar.getNavigationBarColor());
             }
         }
     }
@@ -180,5 +209,15 @@ public class ActivityInitConfig {
         }
         Window window = activity.getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // 隐藏导航栏
+        View decorView = window.getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        decorView.setOnSystemUiVisibilityChangeListener(i -> {
+            if ((i & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                decorView.setSystemUiVisibility(uiOptions);
+            }
+        });
     }
 }

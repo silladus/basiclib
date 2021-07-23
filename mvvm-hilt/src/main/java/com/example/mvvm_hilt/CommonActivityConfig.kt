@@ -5,7 +5,7 @@ import android.app.Application
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import silladus.basic.ActivityInitConfig
-import silladus.basic.IStatusBar
+import silladus.basic.systembar.IStatusBar
 
 
 /**
@@ -24,6 +24,8 @@ object CommonActivityConfig {
             override fun statusBarColor(): Int {
                 return ContextCompat.getColor(app, R.color.colorAccent)
             }
+
+            override fun lightStatusBar(): Boolean = false
         }
 
         app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {

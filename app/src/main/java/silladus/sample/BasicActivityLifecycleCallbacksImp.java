@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import silladus.basic.ActivityInitConfig;
-import silladus.basic.IStatusBar;
+import silladus.basic.systembar.ISystemBar;
 
 /**
  * Created by silladus on 2018/5/31/0031.
@@ -17,7 +17,7 @@ import silladus.basic.IStatusBar;
  */
 public abstract class BasicActivityLifecycleCallbacksImp
         extends SimpleActivityLifecycleCallbacks
-        implements IStatusBar {
+        implements ISystemBar {
 
     @CallSuper
     @Override

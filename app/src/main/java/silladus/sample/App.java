@@ -79,6 +79,20 @@ public class App extends Application {
                 return Color.parseColor("#ff303030");
             }
 
+            @Override
+            public boolean lightStatusBar() {
+                return true;
+            }
+
+            @Override
+            public int getNavigationBarColor() {
+                return Color.WHITE;
+            }
+
+            @Override
+            public boolean lightNavigationBar() {
+                return true;
+            }
         });
         //registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacksImp());
     }
