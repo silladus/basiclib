@@ -4,6 +4,7 @@ public class SystemBarCloneByNavigationBarEnable implements PropertyClone {
 
     @Override
     public boolean cloneBy(DefaultSystemBar defaultSystemBar, Object source) {
+        boolean hadSet = defaultSystemBar.cloneBy(source);
         if (source instanceof INavigationBar) {
             INavigationBar navigationBar = (INavigationBar) source;
             
@@ -12,6 +13,6 @@ public class SystemBarCloneByNavigationBarEnable implements PropertyClone {
 
             return true;
         }
-        return false;
+        return hadSet;
     }
 }

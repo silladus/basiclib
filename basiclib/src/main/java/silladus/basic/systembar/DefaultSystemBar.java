@@ -73,16 +73,22 @@ public class DefaultSystemBar implements ISystemBar {
         return mLightNavigationBar;
     }
 
-    public boolean cloneBy(Object source) {
+    public void read(Object source) {
+        // 完成参数数据的解析拷贝后不再解析
+        if (finishCloneProperty) {
+            return;
+        }
+
         index = 0;
-        finishCloneProperty = false;
+        doClone(source);
+    }
 
-        doCloneBy(source);
-
+    public boolean cloneBy(Object source) {
+        doClone(source);
         return finishCloneProperty;
     }
 
-    private void doCloneBy(Object source) {
+    private void doClone(Object source) {
         if (index >= mPropertyCloneList.size()) {
             return;
         }
@@ -96,7 +102,5 @@ public class DefaultSystemBar implements ISystemBar {
         if (hadSet) {
             finishCloneProperty = true;
         }
-
-        doCloneBy(source);
     }
 }

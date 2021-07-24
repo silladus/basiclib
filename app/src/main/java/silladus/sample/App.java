@@ -81,7 +81,7 @@ public class App extends Application {
 
             @Override
             public boolean lightStatusBar() {
-                return true;
+                return false;
             }
 
             @Override

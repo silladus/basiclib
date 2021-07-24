@@ -19,7 +19,12 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import silladus.basic.systembar.*;
+import silladus.basic.systembar.DefaultSystemBar;
+import silladus.basic.systembar.IStatusBar;
+import silladus.basic.systembar.ISystemBar;
+import silladus.basic.systembar.PropertyClone;
+import silladus.basic.systembar.SystemBarCloneByNavigationBarEnable;
+import silladus.basic.systembar.SystemBarCloneByStatusBarEnable;
 
 /**
  * Created by silladus on 2018/5/31/0031.
@@ -78,11 +83,9 @@ public class ActivityInitConfig {
 
         DefaultSystemBar defaultSystemBar = new DefaultSystemBar(propertyCloneList);
         // 优先取activity中的配置
-        boolean hadClone = defaultSystemBar.cloneBy(activity);
+        defaultSystemBar.read(activity);
         // activity中没有配置则取通用配置
-        if (!hadClone) {
-            defaultSystemBar.cloneBy(iStatusBar);
-        }
+        defaultSystemBar.read(iStatusBar);
 
         if (isGray) {
             defaultSystemBar.setStatusBarColor(0xFFA9A9A9);
