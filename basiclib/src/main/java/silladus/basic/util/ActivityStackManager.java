@@ -27,6 +27,10 @@ public class ActivityStackManager {
         return activities.peek();
     }
 
+    public boolean isNotEmpty() {
+        return !activities.empty();
+    }
+
     /**
      * Activity入栈
      *
@@ -39,7 +43,7 @@ public class ActivityStackManager {
     }
 
     public void remove(Activity activity) {
-        if (activities.size() > 0) {
+        if (isNotEmpty()) {
             activities.remove(activity);
         }
     }
@@ -47,15 +51,8 @@ public class ActivityStackManager {
     /**
      * Activity栈中是否存在对应的Activity
      */
-    public boolean isExistActivity(Class clz) {
-        if (activities.size() > 0) {
-            for (Activity activity : activities) {
-                if (activity != null && activity.getClass().equals(clz)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public boolean isExistActivity(Class<?> clz) {
+        return getActivity(clz) != null;
     }
 
     public void startNewActivity(Class<? extends Activity> newActivity) {
@@ -73,7 +70,7 @@ public class ActivityStackManager {
     }
 
     public void setTopActivity(Activity activity) {
-        if (activities.size() > 0) {
+        if (isNotEmpty()) {
             int location = activities.search(activity);
 
             if (location == -1) {
@@ -90,7 +87,7 @@ public class ActivityStackManager {
     }
 
     public void finishTopActivity() {
-        if (activities.size() > 0) {
+        if (isNotEmpty()) {
             Activity activity = activities.pop();
             if (activity != null) {
                 activity.finish();
@@ -103,8 +100,8 @@ public class ActivityStackManager {
      *
      * @param clz
      */
-    public void popToTopActivity(Class clz) {
-        while (!activities.empty()) {
+    public void popToTopActivity(Class<?> clz) {
+        while (isNotEmpty()) {
             Activity activity = activities.pop();
             if (activity.getClass().equals(clz)) {
                 //到达目标activity
@@ -123,8 +120,8 @@ public class ActivityStackManager {
      * @param clz
      */
     @Nullable
-    public Activity getActivity(Class clz) {
-        if (activities.size() > 0) {
+    public Activity getActivity(Class<?> clz) {
+        if (isNotEmpty()) {
             for (Activity tmp : activities) {
                 if (tmp != null && tmp.getClass().equals(clz)) {
                     return tmp;
@@ -132,5 +129,24 @@ public class ActivityStackManager {
             }
         }
         return null;
+    }
+
+    public void startSingleActivity(Class<? extends Activity> clazz) {
+        if (isNotEmpty()) {
+            @SuppressWarnings("unchecked")
+            Stack<Activity> temp = (Stack<Activity>) activities.clone();
+
+            Activity top = temp.pop();
+            if (!clazz.equals(top.getClass())){
+                top.startActivity(new Intent(top, clazz));
+                top.finish();
+            }
+
+            // 销毁其他Activity
+            while (!temp.empty()) {
+                top = temp.pop();
+                top.finish();
+            }
+        }
     }
 }
