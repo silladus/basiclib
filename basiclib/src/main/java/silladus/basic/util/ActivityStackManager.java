@@ -145,7 +145,9 @@ public class ActivityStackManager {
             // 销毁其他Activity
             while (!temp.empty()) {
                 top = temp.pop();
-                top.finish();
+                if (!clazz.equals(top.getClass())){
+                    top.finish();
+                }
             }
         }
     }
