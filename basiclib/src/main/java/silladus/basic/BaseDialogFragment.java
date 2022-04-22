@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -18,6 +19,14 @@ import androidx.fragment.app.FragmentTransaction;
  * Description:
  */
 public abstract class BaseDialogFragment extends DialogFragment {
+    
+    public BaseDialogFragment() {
+        super();
+    }
+
+    public BaseDialogFragment(@LayoutRes int contentLayoutId) {
+        super(contentLayoutId);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
