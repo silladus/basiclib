@@ -171,7 +171,7 @@ public class ActivityInitConfig {
             // 透明状态栏
             if (!isClipToPadding) {
                 statusBarColor = Color.TRANSPARENT;
-                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                decorViewFlag |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             }
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(statusBarColor);
