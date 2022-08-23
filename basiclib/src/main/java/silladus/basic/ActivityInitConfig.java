@@ -71,7 +71,10 @@ public class ActivityInitConfig {
         // AppCompatActivity call the supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         // else call requestWindowFeature(Window.FEATURE_NO_TITLE) if extend Activity.
         if (activity instanceof AppCompatActivity) {
-            ((AppCompatActivity) activity).supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+            try {
+                ((AppCompatActivity) activity).supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+            } catch (Exception ignore) {
+            }
         }
 
         if (propertyCloneList == null) {
