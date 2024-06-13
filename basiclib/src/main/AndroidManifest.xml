@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="silladus.basic" />
+    package="silladus.basic">
+
+    <application>
+        <activity
+            android:name=".ActivityDialog"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:launchMode="singleInstance"
+            android:theme="@style/ActivityDialogStyle" />
+    </application>
+</manifest>
